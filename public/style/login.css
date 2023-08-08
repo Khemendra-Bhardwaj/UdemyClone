@@ -1,4 +1,4 @@
-/* authenticate.css */
+/* login.css */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -10,7 +10,7 @@ body {
     background-color: #f2f2f2;
   }
   
-  .signup-container {
+  .login-container {
     background-color: #fff;
     padding: 100px;
     border-radius: 8px;
@@ -46,7 +46,7 @@ body {
     border-radius: 4px;
   }
   
-  .btn-signup {
+  .btn-login {
     background-color: #007bff;
     color: #fff;
     padding: 15px 75px;
@@ -55,19 +55,19 @@ body {
     cursor: pointer;
   }
   
-  .btn-signup:hover {
+  .btn-login:hover {
     background-color: #0056b3;
   }
   
-  .login-link {
+  .signup-link {
     margin-top: 10px;
   }
   
-  .login-link p {
+  .signup-link p {
     margin: 0;
   }
   
-  .login-link a {
+  .signup-link a {
     color: #007bff;
   }
   

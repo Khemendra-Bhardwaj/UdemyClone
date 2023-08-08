@@ -1,13 +1,22 @@
+doctype html
 html
   head
-    title= title
+    title= "Sign Up - Your App Name"
+    link(rel="stylesheet", href="/style/authenticate.css")
   body
-    //- sign up/ login page {FORM }
-    h1 SignUp  
-    form(action='/', method='post')
-      label(for ='name' ) Email :
-      input(type='text', name='name') 
-      label(for ='password' ) Password  :
-      input(type='password' , name='password' )
-      button(type='submit') Signup  
-    a(href='/login') GotoLogin 
+    .signup-container
+      .logo
+        img(src="/images/Udemy.png", alt="Your App Logo")
+      .form-container
+        h1 Sign Up
+        form(action='/', method='post')
+          .form-group
+            label(for ='name' ) Email:
+            input(type='text', name='name', placeholder='Enter your email')
+          .form-group
+            label(for ='password' ) Password:
+            input(type='password', name='password', placeholder='Enter your password')
+          button.btn-signup(type='submit') Sign Up
+        .login-link
+          p Already have an account? 
+          a(href='/login') Log in here

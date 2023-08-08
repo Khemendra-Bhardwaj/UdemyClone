@@ -4,11 +4,13 @@ html
   body
     h1 See All Courses 
       a(href='/my-courses') See My-Courses 
-
-    each card in cards
+      a(href='/add-course')  Add Course 
+    each card in all_courses_available
       div 
       img(src=card.image, alt='Card Image')
       p= card.description
+      br
+      p=card.price 
       div 
         form(action='/dashboard', method='post')
           input(type='hidden', name='course', value=JSON.stringify(card))

@@ -1,0 +1,24 @@
+doctype html
+html
+  head
+    title Course Form
+  body
+    h1 Course Form
+    
+    form(action="/add-course", method="POST")
+      label(for="image") Image URL:
+      br
+      input(type="text", id="image", name="add_course_image")
+      br
+      
+      label(for="description") Course Description:
+      br
+      input(type="text", id="description", name="add_course_description")
+      br
+      
+      label(for="price") Price:
+      br
+      input(type="text", id="price", name="add_course_price")
+      br
+      
+      button(type="submit") Submit

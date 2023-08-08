@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
-const GlobalCourses = new mongoose.Schema( {
+const publishCourse = new mongoose.Schema( {
+
     image:{
         type: String,
         required : true
@@ -11,10 +12,9 @@ const GlobalCourses = new mongoose.Schema( {
     },
     price:{
         type: Number,
-        required: false,
-        default : 100 
+        required: true 
     }
 } )
 
-const AllCourses = mongoose.model("AllCourses",  GlobalCourses )
-module.exports = { AllCourses} 
+// const MyCourses = mongoose.model("MyCourses",  UserCourses )
+module.exports =  UserCourses

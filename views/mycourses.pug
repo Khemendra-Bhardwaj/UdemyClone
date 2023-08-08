@@ -9,6 +9,8 @@ html
       div 
       img(src=card.image, alt='Card Image')
       p= card.description
+      br
+      p=card.price 
       div 
         //- form(action='/my-courses', method='post') routing for deleting courses
         //-     input(type='hidden', value='mycourse')
