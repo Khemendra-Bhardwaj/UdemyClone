@@ -1,0 +1,13 @@
+html
+  head
+    title= title
+  body
+    //- sign up/ login page {FORM }
+    h1 Login 
+    form(action='/login', method='post')
+      label(for ='name' ) Email :
+      input(type='text', name='name') 
+      label(for ='password' ) Password  :
+      input(type='password' , name='password' )
+      button(type='submit') Login 
+    a(href='/') GotoSignUp 

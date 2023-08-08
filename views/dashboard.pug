@@ -1,0 +1,16 @@
+html
+  head
+    title= title
+  body
+    h1 See All Courses 
+      a(href='/my-courses') See My-Courses 
+
+    each card in cards
+      div 
+      img(src=card.image, alt='Card Image')
+      p= card.description
+      div 
+        form(action='/dashboard', method='post')
+          input(type='hidden', name='course', value=JSON.stringify(card))
+          button Enroll 
+      

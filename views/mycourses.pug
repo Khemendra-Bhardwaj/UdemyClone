@@ -1,0 +1,14 @@
+html
+  head
+    title= title
+  body
+    h1 Purchased  Courses 
+        a(href='/dashboard') See All-Courses 
+      
+    each card in myCourses
+      div 
+      img(src=card.image, alt='Card Image')
+      p= card.description
+      div 
+        //- form(action='/my-courses', method='post') routing for deleting courses
+        //-     input(type='hidden', value='mycourse')
