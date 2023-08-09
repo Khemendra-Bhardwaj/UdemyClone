@@ -2,19 +2,46 @@ doctype html
 html
   head
     title= title
-    link(rel="stylesheet", href="/style/mycourses.css") 
+    link(rel="stylesheet", href="/style/mycourses.css")
+    // Include Bootstrap CSS here
+    link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css")
+    style.
+      /* Add custom CSS for fixed card dimensions */
+      .card {
+        width: 18rem;
+        transition: transform 0.2s; /* Add transition for smooth pop-up effect */
+      }
+      /* Apply pop-up effect and red background to delete button on hover */
+      .card:hover {
+        transform: translateY(-5px); /* Pop-up effect */
+      }
+      .btn-delete {
+        background-color: #dc3545;
+        border-color: #dc3545;
+      }
+      .btn-delete:hover {
+        background-color: #c82333;
+        border-color: #bd2130;
+      }
   body
-    h1.title Purchased Courses
-      a.dashboard-link(href='/dashboard') See All Courses
+    h1.title.mb-4 Purchased Courses
+    a.dashboard-link(href='/dashboard', class="mb-4") See All Courses
 
-    .card-grid
-      each card in fetchMycourses
-        .card
-          img.card-img-top(src=card.image, alt='Course Image')
-          .card-body
-            h5.card-title= card.title
-            p.card-description= card.description
-            p.card-price= card.price
-            form(action='/my-courses', method='post')
-              input(type='hidden', name='courseId', value=card.id)
-              button.btn.btn-delete(type='submit') Delete Course
+    // Use Bootstrap card classes for the card grid
+    .container
+      .row
+        // Loop through each card and create a Bootstrap card with max 3 per row
+        each card in fetchMycourses
+          .col-md-4.mb-4
+            .card
+              img.card-img-top(src=card.image, alt='Course Image')
+              .card-body
+                h5.card-title= card.title
+                p.card-description= card.description
+                p.card-price= card.price
+                form(action='/my-courses', method='post')
+                  input(type='hidden', name='courseId', value=card.id)
+                  button.btn.btn-delete(type='submit') Delete Course
+    // Include Bootstrap JavaScript here
+    script(src="https://code.jquery.com/jquery-3.5.1.slim.min.js")
+    script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js")

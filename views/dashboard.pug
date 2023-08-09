@@ -1,18 +1,53 @@
+doctype html
 html
   head
     title= title
+    link(rel="stylesheet", href="/style/dashboard.css")
+    // Include Bootstrap CSS here
+    link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css")
+    // Add your custom CSS link here, if any
+    link(rel="stylesheet", href="/style/custom.css")
   body
-    h1 See All Courses 
-      a(href='/my-courses') See My-Courses 
-      a(href='/add-course')  Add Course 
-    each card in all_courses_available
-      div 
-      img(src=card.image, alt='Card Image')
-      p= card.description
-      br
-      p=card.price 
-      div 
-        form(action='/dashboard', method='post')
-          input(type='hidden', name='course', value=JSON.stringify(card))
-          button  Enroll 
-      
+    //- h1.mt-3 See All Courses
+    //- a(href='/my-courses', class="mr-3") See My Courses
+    //- a(href='/add-course') Add Course
+
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light.mt-4
+      a.navbar-brand(href='/dashboard') Udemy
+      button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      .collapse.navbar-collapse#navbarNav
+        ul.navbar-nav.mx-4
+          //- li.nav-item.active
+          //-   a.nav-link(href='/dashboard', style='font-size: 1.2rem;') Home
+          li.nav-item
+            a.nav-link(href='/my-courses', style='font-size: 1.2rem;') My-Courses
+          li.nav-item
+            a.nav-link(href='/add-course', style='font-size: 1.2rem;') Add-Course 
+          li.nav-item
+          li.nav-item
+            a.nav-link(href='/', style='font-size: 1.2rem;') Login/SignUp
+          li.nav-item 
+            a.nav-link.disabled(href='#', style='font-size: 1.2rem;') Developer
+
+
+
+
+
+    // Use Bootstrap card classes to create a card grid
+    .container.mt-4
+      .row
+        // Loop through each card and create a Bootstrap card
+        each card in all_courses_available
+          .col-md-4.mb-4
+            .card(style="width: 18rem;")
+              img.card-img-top(src=card.image, alt="Card Image")
+              .card-body
+                p.card-text= card.description
+                p.card-text.price= card.price
+                form(action='/dashboard', method='post')
+                  input(type='hidden', name='course', value=JSON.stringify(card))
+                  button.btn.btn-primary Enroll
+    // Include Bootstrap JavaScript here
+    script(src="https://code.jquery.com/jquery-3.5.1.slim.min.js")
+    script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js")
