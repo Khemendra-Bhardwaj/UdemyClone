@@ -18,10 +18,7 @@ const UserCourses = new mongoose.Schema( {
         required: false ,
         default: 100
     },
-    progress: {
-        type: Number,
-        required : false 
-    }
+
 } )
 
 const MyCourses = mongoose.model("MyCourses",  UserCourses )

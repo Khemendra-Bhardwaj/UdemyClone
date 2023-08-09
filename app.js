@@ -3,6 +3,9 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose')
 const {User } = require('./model/User')
 const {AllCourses} = require('./model//GlobalCourses')
+const {MyCourses} = require('./model/UserCourses')
+
+let  userName;
 // const {MyCourses} = require('./model/UserCourses')
 // const {CourseModel} = require('./model/mainSchema')
 
@@ -61,6 +64,33 @@ app.post('/add-course', async (req,res)=>{
 })
 /* -------------AddCourse--------------- */
 
+/*----------------------Login ------------------------------ */
+app.get('/login',(req,res)=>{
+    res.render('login') 
+})
+
+app.post('/login',async (req,res)=>{
+    const existingUser =  await User.findOne({name:req.body.name} )
+    if(!existingUser){
+        console.log('UserName Doesnt Exist') ;
+    }
+    else{
+        const userPassword  = await existingUser.password
+        if(userPassword === req.body.password){
+            userName = req.body.name 
+            res.redirect('/dashboard' )
+        }
+        else{
+            console.log('Wrong Password ');
+            res.redirect('/login')
+        }
+    }
+})
+
+/*----------------------Login ------------------------------ */
+
+
+
 
 /* ------------------DashBoard ----------------------- */
 app.get('/dashboard', async  (req,res)=>{
@@ -81,7 +111,7 @@ app.get('/dashboard', async  (req,res)=>{
     res.render('dashboard', {all_courses_available} )
 })
 
-app.post('/dashboard',(req,res)=>{
+app.post('/dashboard', async (req,res)=>{
     // const enrolledCoursedIds = []
     const enrolledCourse = JSON.parse(req.body.course);
     // console.log(enrolledCourse);  
@@ -89,11 +119,18 @@ app.post('/dashboard',(req,res)=>{
     // no 2 courses can have same image id 
     // if(!enrolledCoursedIds.includes(enrolledCourse.image) ){
         // enrolledCoursedIds.push(enrolledCourse.image); // Add the ID to the list
-        myCourses.push({
+        const myNewPurchasedCourse = {
+            userName : userName , 
             image: enrolledCourse.image,
             description : enrolledCourse.description,
-            price : req.body.price 
-        })
+            price : 100 // handle price too 
+        } 
+        console.log(myNewPurchasedCourse);
+        myCourses.push(myNewPurchasedCourse)
+        
+        const newEnrolledCourse = new MyCourses( myNewPurchasedCourse )
+        await newEnrolledCourse.save() 
+        // adding course to MyCourses and seaching it with userName  
     // }
     
     res.redirect('/dashboard') 
@@ -103,36 +140,16 @@ app.post('/dashboard',(req,res)=>{
 
 
 
-/*----------------------Login ------------------------------ */
-app.get('/login',(req,res)=>{
-    res.render('login') 
-})
-
-app.post('/login',async (req,res)=>{
-    const existingUser =  await User.findOne({name:req.body.name} )
-    if(!existingUser){
-        console.log('UserName Doesnt Exist') ;
-    }
-    else{
-        const userPassword  = await existingUser.password
-        if(userPassword === req.body.password){
-            res.redirect('/dashboard' )
-        }
-        else{
-            console.log('Wrong Password ');
-            res.redirect('/login')
-        }
-    }
-})
-
-/*----------------------Login ------------------------------ */
 
 
 
 /* -------------------  Rendering My Courses --------------------*/
 
-app.get('/my-courses', (req,res)=>{
-    res.render('mycourses', {myCourses}) 
+app.get('/my-courses', async (req,res)=>{
+    const fetchMycourses =   await MyCourses.find({userName : userName})
+    console.log( 'fetching my courses from database ' +   fetchMycourses);
+
+    res.render('mycourses', {fetchMycourses}) 
 })
 
 /*------------------------------------------------------------- */
