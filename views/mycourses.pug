@@ -24,21 +24,37 @@ html
         border-color: #bd2130;
       }
   body
-    h1.title.mb-4 Purchased Courses
-    a.dashboard-link(href='/dashboard', class="mb-4") See All Courses
+    //- h1.title.mb-4 Purchased Courses
+    //- a.dashboard-link(href='/dashboard', class="mb-4") See All Courses
+
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light.mt-4
+      a.navbar-brand(href='/dashboard') Udemy
+      button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      .collapse.navbar-collapse#navbarNav
+        ul.navbar-nav.mx-4
+          li.nav-item
+            a.nav-link(href='/dashboard', style='font-size: 1.2rem;') All-Courses 
+          li.nav-item
+            a.nav-link(href='/add-course', style='font-size: 1.2rem;') Add-Course 
+          li.nav-item
+          li.nav-item
+            a.nav-link(href='/', style='font-size: 1.2rem;') Login/SignUp
+          li.nav-item 
+            a.nav-link.disabled(href='#', style='font-size: 1.2rem;') Developer
 
     // Use Bootstrap card classes for the card grid
     .container
       .row
         // Loop through each card and create a Bootstrap card with max 3 per row
         each card in fetchMycourses
-          .col-md-4.mb-4
+          .col-md-4.mb-4(style="margin-top: 80px;")
             .card
               img.card-img-top(src=card.image, alt='Course Image')
-              .card-body
+              .card-body.text-center
                 h5.card-title= card.title
                 p.card-description= card.description
-                p.card-price= card.price
+                p.card-price= card.price + '$'
                 form(action='/my-courses', method='post')
                   input(type='hidden', name='courseId', value=card.id)
                   button.btn.btn-delete(type='submit') Delete Course
